@@ -1,8 +1,10 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const { writeFile, copyFile } = require('./src/generate-site');
 
 const propmtUser = () => {
     return inquirer.prompt([
+        //start manager prompts
     {
         type: 'input',
         name: 'name',
@@ -55,6 +57,7 @@ const propmtUser = () => {
           }
         }
       },
+      //start engineer prompts
       {
         type: 'confirm',
         name: 'confirmEngineer',
@@ -85,6 +88,7 @@ const propmtUser = () => {
         message: "What is the Engineer's email address?",
         when: ({ confirmEngineer }) => confirmEngineer
       },
+      //start intern prompts
       {
         type: 'confirm',
         name: 'confirmIntern',
