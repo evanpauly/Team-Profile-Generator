@@ -1,6 +1,10 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const { writeFile, copyFile } = require('./src/generate-site');
+const employee = require('./lib/Employee');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+//const { writeFile, copyFile } = require('./src/generate-site');
 
 const propmtUser = () => {
     return inquirer.prompt([

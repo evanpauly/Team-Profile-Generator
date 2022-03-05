@@ -1,3 +1,8 @@
+module.exports = templateData => {
+  const { Manager, Engineer, Intern } = templateData
+
+return `
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,3 +28,6 @@
       </div>
 </body>
 </html>
+`
+
+}
