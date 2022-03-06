@@ -1,5 +1,6 @@
+/*
 module.exports = templateData => {
-  const { Manager, Engineer, Intern } = templateData
+  const { Manager, Engineer, Intern } = templateData;
 
 return `
 
@@ -31,3 +32,18 @@ return `
 `
 
 }
+*/
+
+//should create cards
+const generateCards = teamCards => {
+  if(!teamCards) {
+    return '';
+  }
+
+  return `
+    <section class="card" id="all-cards">
+      <div>
+        ${teamCards}
+      <div>
+  `;
+};

@@ -1,10 +1,10 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const employee = require('./lib/Employee');
-const Manager = require('./lib/Manager');
-const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern');
-//const { writeFile, copyFile } = require('./src/generate-site');
+//const employee = require('./lib/Employee');
+//const Manager = require('./lib/Manager');
+//const Engineer = require('./lib/Engineer');
+//const Intern = require('./lib/Intern');
+const { writeFile, copyFile } = require('./src/generate-site');
 
 const propmtUser = () => {
     return inquirer.prompt([
@@ -61,6 +61,38 @@ const propmtUser = () => {
           }
         }
       },
+      {
+        type: 'confirm',
+        name: 'confirmTeam',
+        message: 'Would you like to add team members?',
+        default: true
+      },
+      {
+        type: 'input',
+        name: 'teamName',
+        message: 'Name your team:',
+        when: ({ confirmTeam }) => confirmTeam
+      }
+    ]);
+  };
+    /*
+    .then(memberData => {
+      teamData.members.push(memberData);
+      if (memberData.confirmAddTeam) {
+        return propmtUser(teamData);
+      } else {
+        return teamData;
+      }
+      
+    });
+  };
+    */
+      const promptTeam = teamData => {
+
+      if (!teamData.team) {
+        teamData.team = [];
+      }
+      return inquirer.prompt([
       //start engineer prompts
       {
         type: 'confirm',
@@ -78,19 +110,16 @@ const propmtUser = () => {
         type: 'input',
         name: 'engineerID',
         message: "What is the Engineer's ID?",
-        when: ({ confirmEngineer }) => confirmEngineer
       },
       {
         type: 'input',
         name: 'engineerGithub',
         message: "What is the Engineer's GitHub username?",
-        when: ({ confirmEngineer }) => confirmEngineer
       },
       {
         type: 'input',
         name: 'engineerEmail',
         message: "What is the Engineer's email address?",
-        when: ({ confirmEngineer }) => confirmEngineer
       },
       //start intern prompts
       {
@@ -109,21 +138,49 @@ const propmtUser = () => {
         type: 'input',
         name: 'internID',
         message: "What is the Intern's ID?",
-        when: ({ confirmIntern }) => confirmIntern
       },
       {
         type: 'input',
         name: 'internGithub',
         message: "What is the Intern's GitHub username?",
-        when: ({ confirmIntern }) => confirmIntern
       },
       {
         type: 'input',
         name: 'internEmail',
         message: "What is the Intern's email address?",
-        when: ({ confirmIntern }) => confirmIntern
+      },
+      {
+        type: 'confirm',
+        name: 'confirmAddMember',
+        message: 'Would you like to enter another team member?',
+        default: false
       }
-    ]);
+    ])
+    .then(cardData => {
+      teamData.cards.push(cardData);
+      if (cardData.confirmAddMember) {
+        return promptTeam(teamData);
+      } else {
+        return teamData;
+      }
+    });
 };
 
-propmtUser();
+propmtUser()
+  .then(promptTeam)
+  .then(teamData => {
+    return generateSite(teamData);
+  })
+  .then(pageHTML => {
+    return writeFile(pageHTML);
+  })
+  .then(writeFileResponse => {
+    console.log(writeFileResponse);
+    return copyFile();
+  })
+  .then(copyFileResponse => {
+    console.log(copyFileResponse);
+  })
+  .catch(err => {
+    console.log(err);
+ });
