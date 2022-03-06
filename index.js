@@ -1,5 +1,6 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const generateSite = require('./src/generate-site');
 //const employee = require('./lib/Employee');
 //const Manager = require('./lib/Manager');
 //const Engineer = require('./lib/Engineer');
@@ -75,18 +76,6 @@ const propmtUser = () => {
       }
     ]);
   };
-    /*
-    .then(memberData => {
-      teamData.members.push(memberData);
-      if (memberData.confirmAddTeam) {
-        return propmtUser(teamData);
-      } else {
-        return teamData;
-      }
-      
-    });
-  };
-    */
       const promptTeam = teamData => {
 
       if (!teamData.team) {
@@ -157,14 +146,15 @@ const propmtUser = () => {
       }
     ])
     .then(cardData => {
-      teamData.cards.push(cardData);
+      //teamData.cards.push(cardData);
       if (cardData.confirmAddMember) {
         return promptTeam(teamData);
       } else {
         return teamData;
       }
-    });
-};
+      
+      });
+    };
 
 propmtUser()
   .then(promptTeam)

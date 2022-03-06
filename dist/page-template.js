@@ -35,15 +35,26 @@ return `
 */
 
 //should create cards
-const generateCards = teamCards => {
-  if(!teamCards) {
-    return '';
-  }
-
+const generateCards = teamArr => {
   return `
     <section class="card" id="all-cards">
-      <div>
-        ${teamCards}
-      <div>
+      <div class= "card-body">
+        ${teamArr
+          .map(({ engineerName, engineerID, engineerGithub, engineerEmail }) => {
+            return `
+            <div class="card">
+                <h5 class="card-header">${engineerName}</h5>
+              <div class="card-body">
+                <h5 class="card-title">Manager</h5>
+                <p class="card-text">${engineerID}</p>
+                <p class="card-text">${engineerGithub}</p>
+                <p class="card-text">${engineerEmail}</p>
+              </div>
+            </div> 
+        `;
+      })
+    }
+  </div>
+  </section>
   `;
 };
