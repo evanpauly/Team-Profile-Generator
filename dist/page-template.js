@@ -1,6 +1,23 @@
-/*
+//should create cards
+const generateCards = teamArr => {
+  return `
+    <section class="card" id="all-cards">
+      <div class= "card-body">
+        ${teamArr
+          .map(({ engineerName, engineerID, engineerGithub, engineerEmail }) => {
+            return `
+             
+        `;
+      })
+    }
+  </div>
+  </section>
+  `;
+};
+
+
 module.exports = templateData => {
-  const { Manager, Engineer, Intern } = templateData;
+  const { manager, engineer, intern } = templateData;
 
 return `
 
@@ -17,44 +34,20 @@ return `
     <link rel="stylesheet" href="./dist/style.css">
     <title>Team Profile</title>
 </head>
+
 <body>
-    <div class="card">
-        <h5 class="card-header">name</h5>
-        <div class="card-body">
-          <h5 class="card-title">Manager</h5>
-          <p class="card-text">ID:</p>
-          <p class="card-text">Email:</p>
-          <p class="card-text"></p>
-        </div>
-      </div>
-</body>
-</html>
-`
-
-}
-*/
-
-//should create cards
-const generateCards = teamArr => {
-  return `
-    <section class="card" id="all-cards">
-      <div class= "card-body">
-        ${teamArr
-          .map(({ engineerName, engineerID, engineerGithub, engineerEmail }) => {
-            return `
-            <div class="card">
-                <h5 class="card-header">${engineerName}</h5>
-              <div class="card-body">
-                <h5 class="card-title">Manager</h5>
-                <p class="card-text">${engineerID}</p>
-                <p class="card-text">${engineerGithub}</p>
-                <p class="card-text">${engineerEmail}</p>
-              </div>
-            </div> 
-        `;
-      })
-    }
+  <div class="card">
+    <h5 class="card-header">${engineerName}</h5>
+    <div class="card-body">
+      <h5 class="card-title">Manager</h5>
+      <p class="card-text">${engineerID}</p>
+      <p class="card-text">${engineerGithub}</p>
+      <p class="card-text">${engineerEmail}</p>
+    </div>
   </div>
-  </section>
-  `;
+</body>
+
+</html>
+`;
 };
+

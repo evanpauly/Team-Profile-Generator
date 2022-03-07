@@ -1,6 +1,6 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const generateSite = require('./src/generate-site');
+const generateSite = require('./dist/page-template');
 //const employee = require('./lib/Employee');
 //const Manager = require('./lib/Manager');
 //const Engineer = require('./lib/Engineer');
@@ -67,19 +67,13 @@ const propmtUser = () => {
         name: 'confirmTeam',
         message: 'Would you like to add team members?',
         default: true
-      },
-      {
-        type: 'input',
-        name: 'teamName',
-        message: 'Name your team:',
-        when: ({ confirmTeam }) => confirmTeam
       }
     ]);
   };
-      const promptTeam = teamData => {
+      const promptMembers = teamData => {
 
-      if (!teamData.team) {
-        teamData.team = [];
+      if (!teamData.members) {
+        teamData.members = [];
       }
       return inquirer.prompt([
       //start engineer prompts
@@ -99,16 +93,19 @@ const propmtUser = () => {
         type: 'input',
         name: 'engineerID',
         message: "What is the Engineer's ID?",
+        when: ({ confirmEngineer }) => confirmEngineer
       },
       {
         type: 'input',
         name: 'engineerGithub',
         message: "What is the Engineer's GitHub username?",
+        when: ({ confirmEngineer }) => confirmEngineer
       },
       {
         type: 'input',
         name: 'engineerEmail',
         message: "What is the Engineer's email address?",
+        when: ({ confirmEngineer }) => confirmEngineer
       },
       //start intern prompts
       {
@@ -127,37 +124,32 @@ const propmtUser = () => {
         type: 'input',
         name: 'internID',
         message: "What is the Intern's ID?",
+        when: ({ confirmIntern }) => confirmIntern
       },
       {
         type: 'input',
         name: 'internGithub',
         message: "What is the Intern's GitHub username?",
+        when: ({ confirmIntern }) => confirmIntern
       },
       {
         type: 'input',
         name: 'internEmail',
         message: "What is the Intern's email address?",
+        when: ({ confirmIntern }) => confirmIntern
       },
       {
         type: 'confirm',
         name: 'confirmAddMember',
         message: 'Would you like to enter another team member?',
         default: false
-      }
+      },
     ])
-    .then(cardData => {
-      //teamData.cards.push(cardData);
-      if (cardData.confirmAddMember) {
-        return promptTeam(teamData);
-      } else {
-        return teamData;
-      }
-      
-      });
-    };
+  };
+
 
 propmtUser()
-  .then(promptTeam)
+  .then(promptMembers)
   .then(teamData => {
     return generateSite(teamData);
   })
