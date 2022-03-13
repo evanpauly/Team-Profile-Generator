@@ -37,12 +37,12 @@ return `
 
 <body>
   <div class="card">
-    <h5 class="card-header">${engineerName}</h5>
+    <h5 class="card-header">${engineer}</h5>
     <div class="card-body">
       <h5 class="card-title">Manager</h5>
-      <p class="card-text">${engineerID}</p>
-      <p class="card-text">${engineerGithub}</p>
-      <p class="card-text">${engineerEmail}</p>
+      <p class="card-text">${engineer}</p>
+      <p class="card-text">${engineer}</p>
+      <p class="card-text">${engineer}</p>
     </div>
   </div>
 </body>
